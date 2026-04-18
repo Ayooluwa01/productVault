@@ -1,5 +1,5 @@
-import "../global.css";
 import "react-native-reanimated";
+import "../global.css";
 
 import {
   Inter_100Thin,
@@ -16,6 +16,7 @@ import {
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -44,8 +45,14 @@ export default function RootLayout() {
   }
 
   return (
-    <Stack>
-      <Stack.Screen name="index" options={{ headerShown: false }} />
-    </Stack>
+    // Root layout with safeareaview with edges to all screens
+    <SafeAreaView className="flex-1" edges={["top", "left", "right", "bottom"]}>
+      <Stack screenOptions={{ headerShown: false }}>
+        {/* Splash screen */}
+        <Stack.Screen name="(splash)" />
+        {/* Main screens */}
+        <Stack.Screen name="(main)" />
+      </Stack>
+    </SafeAreaView>
   );
 }

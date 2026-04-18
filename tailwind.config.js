@@ -6,7 +6,11 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        mainblue: "021064",
+        bluebg: "#021064",
+        lightblue: "#4D41DF",
+        graytext: "#454651",
+        greenbg: "#15803D",
+        brownbg: "#B45309",
         primary: "#3B82F6",
         secondary: "#10B981",
         accent: "#F59E0B",
@@ -16,6 +20,12 @@ module.exports = {
           DEFAULT: "#1F2937",
           muted: "#6B7280",
         },
+      },
+      fontSize: {
+        Bigtext: "36px",
+        Minibigtext: "20px",
+        mediumtext: "16px",
+        smalltext: "10px",
       },
       // Moved fontFamily outside of colors
       fontFamily: {
