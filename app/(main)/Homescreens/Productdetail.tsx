@@ -1,14 +1,13 @@
+import Header from "@/components/Header";
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { ScrollView } from "react-native";
 
 const Productdetail = () => {
   return (
-    <View>
-      <Text>Productdetail</Text>
-    </View>
+    <ScrollView style={{ flex: 1 }}>
+      <Header />
+    </ScrollView>
   );
 };
 
 export default Productdetail;
-
-const styles = StyleSheet.create({});

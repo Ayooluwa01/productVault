@@ -114,6 +114,7 @@ export default function MainLayout() {
         tabBarStyle: {
           position: "absolute",
           left: 20,
+          bottom: 0,
           right: 20,
           backgroundColor: "#ffffff",
           borderRadius: 22,
