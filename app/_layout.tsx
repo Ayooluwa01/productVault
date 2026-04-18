@@ -1,3 +1,5 @@
+import "react-native-reanimated";
+
 import {
   Inter_100Thin,
   Inter_200ExtraLight,
@@ -11,9 +13,8 @@ import {
   useFonts,
 } from "@expo-google-fonts/inter";
 import { Stack } from "expo-router";
-import * as SplashScreen from "expo-splash-screen"; // Missing
-import { useEffect } from "react"; // Missing
-import "react-native-reanimated"; // Required for Moti/Reanimated
+import * as SplashScreen from "expo-splash-screen";
+import { useEffect } from "react";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
