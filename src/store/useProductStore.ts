@@ -63,11 +63,15 @@ interface ProductState {
   deleteProduct: (id: string) => void;
   dialog: boolean;
   handledialog: () => void;
+  newdevice: boolean;
+  setnewdevice: () => void;
 }
 
 export const useProductStore = create<ProductState>()(
   persist(
     (set, get) => ({
+      newdevice: true,
+      setnewdevice: () => set({ newdevice: false }),
       limit: 5,
       dialog: false,
       handledialog: () => set((state) => ({ dialog: !state.dialog })),
@@ -118,6 +122,7 @@ export const useProductStore = create<ProductState>()(
       partialize: (state) => ({
         products: state.products,
         limit: state.limit,
+        newdevice: state.newdevice,
       }),
     },
   ),

@@ -133,6 +133,10 @@ const renderSettingsIcon = ({
 export default function MainLayout() {
   const insets = useSafeAreaInsets();
 
+  //   // Check if it's new device
+  //   useEffect(()=>{
+  //  const {newdevice}=useProductStore((p)=>p.newdevice)
+  //   },[])
   return (
     <Tabs
       screenOptions={{
