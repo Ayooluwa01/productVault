@@ -7,21 +7,6 @@ import { router } from "expo-router";
 import React, { useCallback, useMemo } from "react";
 import { FlatList, StyleSheet, View } from "react-native";
 
-const keyExtractor = (item: Product) => item.id;
-
-const handleEdit = useCallback((id: string) => {
-  router.push({
-    pathname: "/(main)/Homescreens/Productdetail",
-    params: { id },
-  });
-}, []);
-
-const renderItem = useCallback(
-  ({ item, index }: { item: Product; index: number }) => (
-    <ProductCard item={item} index={index} onEdit={handleEdit} />
-  ),
-  [handleEdit],
-);
 
 const Homescreen = () => {
   const products = useProductStore((s) => s.products);
@@ -36,6 +21,23 @@ const Homescreen = () => {
   const action = useCallback(() => {
     router.push("/(main)/ProductAdd/Addproduct");
   }, []);
+
+  const keyExtractor = (item: Product) => item.id;
+
+const handleEdit = useCallback((id: string) => {
+  router.push({
+    pathname: "/(main)/Homescreens/Productdetail",
+    params: { id },
+  });
+}, []);
+
+const renderItem = useCallback(
+  ({ item, index }: { item: Product; index: number }) => (
+    <ProductCard item={item} index={index} onEdit={handleEdit} />
+  ),
+  [handleEdit],
+);
+  
   return (
     <>
       <FlatList
