@@ -1,98 +1,65 @@
+import { Emptyvault } from "@/components/Emptyvault";
 import HomeHeader from "@/components/Header";
-import { StyledText } from "@/components/Styledtext";
-import { stylings } from "@/src/constants/stylings";
-import { useProductStore } from "@/src/store/useProductStore";
-import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
-import React from "react";
-import { ScrollView, StyleSheet, View } from "react-native";
+import ProductCard from "@/components/Productcard";
+import { VaultCapacity } from "@/components/Vaultcapacity";
+import { Product, useProductStore } from "@/src/store/useProductStore";
+import { router } from "expo-router";
+import React, { useCallback, useMemo } from "react";
+import { FlatList, StyleSheet, View } from "react-native";
 
-// Empty state for products
-const Vaultcapacity = () => {
-  const { products, limit } = useProductStore();
+const keyExtractor = (item: Product) => item.id;
+
+const handleEdit = useCallback((id: string) => {
+  router.push({
+    pathname: "/(main)/Homescreens/Productdetail",
+    params: { id },
+  });
+}, []);
+
+const renderItem = useCallback(
+  ({ item, index }: { item: Product; index: number }) => (
+    <ProductCard item={item} index={index} onEdit={handleEdit} />
+  ),
+  [handleEdit],
+);
+
+const Homescreen = () => {
+  const products = useProductStore((s) => s.products);
+  const limit = useProductStore((s) => s.limit);
 
   const used = products.length;
-  const percentage = Math.round((used / limit) * 100);
+  const percentage = useMemo(
+    () => Math.round((used / limit) * 100),
+    [used, limit],
+  );
 
+  const action = useCallback(() => {
+    router.push("/(main)/ProductAdd/Addproduct");
+  }, []);
   return (
-    <View>
-      <View style={styles.vaultcapacitygrid}>
-        <StyledText>VAULT CAPACITY</StyledText>
-
-        <View style={styles.vaultcapacityrow}>
-          <StyledText style={styles.vaultcapacitytext}>
-            {used}/{limit} PRODUCTS
-          </StyledText>
-
-          <FontAwesome6
-            name="circle-exclamation"
-            size={19}
-            color={used >= limit ? "red" : "#021064"}
-          />
-        </View>
-
-        {/* Progress Bar */}
-        <View style={styles.vaultcapacityprogressbar}>
-          <View style={styles.vaultcapacityprogressbarfill}></View>
-        </View>
-
-        <StyledText>
-          You have {limit - used} slots available in your basic vault.
-        </StyledText>
-      </View>
-    </View>
+    <>
+      <FlatList
+        data={products}
+        keyExtractor={keyExtractor}
+        renderItem={renderItem}
+        scrollEnabled={true}
+        ListHeaderComponent={
+          <>
+            <HomeHeader />
+            <VaultCapacity used={used} limit={limit} percentage={percentage} />
+            <View>{products.length === 0 && <Emptyvault />}</View>
+          </>
+        }
+        contentContainerStyle={styles.list}
+        showsVerticalScrollIndicator={false}
+      />
+      {/* {products.length > 0 && <Fab onPress={action} />} */}
+    </>
   );
 };
 
-const Productlisting = () => {
-  return (
-    <ScrollView style={styles.container}>
-      <HomeHeader />
+export default Homescreen;
 
-      <View style={styles.vaultcapacity}>
-        <Vaultcapacity />
-      </View>
-    </ScrollView>
-  );
-};
-
-export default Productlisting;
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: stylings.spacing.screenEdge,
-  },
-  vaultcapacity: {
-    backgroundColor: "#E0E3E5",
-    marginTop: stylings.spacing.section,
-    padding: 32,
-    borderRadius: 20,
-    marginHorizontal: stylings.spacing.screenEdge,
-  },
-  vaultcapacityrow: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    marginTop: stylings.spacing.small,
-  },
-  vaultcapacitygrid: {
-    flexDirection: "column",
-    marginTop: stylings.spacing.small,
-    gap: stylings.spacing.small,
-  },
-  vaultcapacitytext: {
-    fontSize: stylings.fontSize.mediumtext,
-    fontWeight: "bold",
-    color: stylings.colors.text.bluebg,
-  },
-  vaultcapacityprogressbar: {
-    height: 10,
-    backgroundColor: "#E0E3E5",
-    borderRadius: 20,
-    marginTop: stylings.spacing.small,
-  },
-  vaultcapacityprogressbarfill: {
-    height: 10,
-    backgroundColor: "#021064",
-    borderRadius: 20,
-  },
+  list: {},
 });

@@ -1,86 +1,108 @@
-import Entypo from "@expo/vector-icons/Entypo";
-import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
+import { stylings } from "@/src/constants/stylings";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { Tabs } from "expo-router";
 import { MotiView } from "moti";
 import React from "react";
+import { StyleSheet, View } from "react-native";
 import { Easing } from "react-native-reanimated";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const HomeIcon = ({ color, focused }: { color: string; focused: boolean }) => (
-  <MotiView className="items-center justify-center">
-    {/* Active dot */}
+  <MotiView style={styles.iconWrap}>
     <MotiView
-      animate={{ opacity: focused ? 1 : 0, translateY: focused ? 0 : -4 }}
-      transition={{
-        type: "timing",
-        duration: 200,
-        easing: Easing.out(Easing.quad),
+      animate={{
+        opacity: focused ? 1 : 0,
+        scaleX: focused ? 1 : 0.3,
       }}
-      className="absolute -top-3 w-1 h-1 rounded-full bg-bluebg"
-    />
-    {/* Icon scale */}
-    <MotiView
-      animate={{ scale: focused ? 1.1 : 1 }}
       transition={{
         type: "timing",
-        duration: 200,
+        duration: 250,
+        easing: Easing.out(Easing.cubic),
+      }}
+      style={styles.activeBar}
+    />
+    <MotiView
+      animate={{ scale: focused ? 1.12 : 1, translateY: focused ? -1 : 0 }}
+      transition={{
+        type: "timing",
+        duration: 250,
         easing: Easing.out(Easing.quad),
       }}
     >
-      <Entypo name="grid" size={30} color={color} />
+      <Ionicons
+        name={focused ? "home" : "home-outline"}
+        size={24}
+        color={color}
+      />
     </MotiView>
   </MotiView>
 );
 
 const AddIcon = ({ focused }: { focused: boolean }) => (
-  <MotiView
-    animate={{ scale: focused ? 1.08 : 1, rotate: focused ? "45deg" : "0deg" }}
-    transition={{
-      type: "timing",
-      duration: 500,
-      easing: Easing.inOut(Easing.cubic),
-    }}
-    style={{
-      width: 52,
-      height: 52,
-      borderRadius: 26,
-      backgroundColor: `${focused ? "#1B3A6B" : "#C4CDD8"}`,
-      alignItems: "center",
-      justifyContent: "center",
-      marginBottom: 30,
-      shadowColor: "#1B3A6B",
-      shadowOffset: { width: 0, height: 6 },
-      shadowOpacity: 0.35,
-      shadowRadius: 12,
-      elevation: 8,
-    }}
-  >
-    <Ionicons name="add" size={30} color="#ffffff" />
-  </MotiView>
+  <View style={styles.addOuter}>
+    <MotiView
+      animate={{
+        rotate: focused ? "45deg" : "0deg",
+        scale: focused ? 1.06 : 1,
+      }}
+      transition={{
+        type: "timing",
+        duration: 500,
+        easing: Easing.inOut(Easing.cubic),
+      }}
+      style={styles.addBtn}
+    >
+      <Ionicons name="add" size={30} color="#fff" />
+    </MotiView>
+    {/* Pulse ring */}
+    <MotiView
+      from={{ scale: 1, opacity: 0.4 }}
+      animate={{ scale: 1.5, opacity: 0 }}
+      transition={{
+        loop: true,
+        type: "timing",
+        duration: 1800,
+        easing: Easing.out(Easing.cubic),
+      }}
+      style={styles.addPulse}
+    />
+  </View>
 );
 
-const LimitIcon = ({ color, focused }: { color: string; focused: boolean }) => (
-  <MotiView className="items-center justify-center">
-    {/* Active dot */}
+const SettingsIcon = ({
+  color,
+  focused,
+}: {
+  color: string;
+  focused: boolean;
+}) => (
+  <MotiView style={styles.iconWrap}>
     <MotiView
-      animate={{ opacity: focused ? 1 : 0, translateY: focused ? 0 : -4 }}
+      animate={{ opacity: focused ? 1 : 0, scaleX: focused ? 1 : 0.3 }}
       transition={{
         type: "timing",
-        duration: 200,
-        easing: Easing.out(Easing.quad),
+        duration: 250,
+        easing: Easing.out(Easing.cubic),
       }}
-      className="absolute -top-3 w-1 h-1 rounded-full bg-bluebg"
+      style={styles.activeBar}
     />
-    {/* Icon scale */}
     <MotiView
-      animate={{ scale: focused ? 1.1 : 1 }}
+      animate={{
+        scale: focused ? 1.12 : 1,
+        rotate: focused ? "30deg" : "0deg",
+        translateY: focused ? -1 : 0,
+      }}
       transition={{
         type: "timing",
-        duration: 200,
-        easing: Easing.out(Easing.quad),
+        duration: 400,
+        easing: Easing.inOut(Easing.cubic),
       }}
     >
-      <FontAwesome6 name="circle-exclamation" size={28} color={color} />
+      <Ionicons
+        name={focused ? "settings-sharp" : "settings-outline"}
+        size={22}
+        color={color}
+      />
     </MotiView>
   </MotiView>
 );
@@ -95,48 +117,53 @@ const renderHomeIcon = ({
 const renderAddIcon = ({ focused }: { color: string; focused: boolean }) => (
   <AddIcon focused={focused} />
 );
-const renderLimitIcon = ({
+const renderSettingsIcon = ({
   color,
   focused,
 }: {
   color: string;
   focused: boolean;
-}) => <LimitIcon color={color} focused={focused} />;
+}) => <SettingsIcon color={color} focused={focused} />;
 
 export default function MainLayout() {
+  const insets = useSafeAreaInsets();
+
   return (
     <Tabs
       screenOptions={{
         headerShown: false,
-        tabBarActiveTintColor: "#1B3A6B",
+        tabBarActiveTintColor: stylings.colors.bluebg,
         tabBarInactiveTintColor: "#C4CDD8",
         tabBarShowLabel: true,
         tabBarStyle: {
           position: "absolute",
-          left: 20,
           bottom: 0,
+          left: 20,
           right: 20,
+          height: 68,
           backgroundColor: "#ffffff",
-          borderRadius: 22,
-          paddingBottom: 8,
-          paddingTop: 8,
+          borderRadius: 34,
+          paddingBottom: 0,
+          paddingTop: 0,
           borderTopWidth: 0,
           elevation: 0,
-          shadowColor: "#1B3A6B",
+          shadowColor: stylings.colors.bluebg,
           shadowOffset: { width: 0, height: 8 },
-          shadowOpacity: 0.13,
-          shadowRadius: 20,
+          shadowOpacity: 0.12,
+          shadowRadius: 24,
         },
         tabBarItemStyle: {
           flex: 1,
           alignItems: "center",
           justifyContent: "center",
+          paddingTop: 4,
         },
         tabBarLabelStyle: {
           fontSize: 10,
-          fontWeight: "600",
-          letterSpacing: 0.4,
-          marginTop: 4,
+          fontWeight: "700",
+          letterSpacing: 0.3,
+          marginTop: 2,
+          paddingBottom: 6,
         },
       }}
     >
@@ -146,12 +173,57 @@ export default function MainLayout() {
       />
       <Tabs.Screen
         name="ProductAdd"
-        options={{ title: "Add", tabBarIcon: renderAddIcon }}
+        options={{
+          title: "",
+          tabBarIcon: renderAddIcon,
+          tabBarShowLabel: false,
+        }}
       />
       <Tabs.Screen
-        name="Limitscreens"
-        options={{ title: "Limit", tabBarIcon: renderLimitIcon }}
+        name="Settingscreens"
+        options={{ title: "Settings", tabBarIcon: renderSettingsIcon }}
       />
     </Tabs>
   );
 }
+
+const styles = StyleSheet.create({
+  iconWrap: {
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 4,
+  },
+  activeBar: {
+    position: "absolute",
+    top: -14,
+    width: 20,
+    height: 3,
+    borderRadius: 99,
+    backgroundColor: stylings.colors.bluebg,
+  },
+  addOuter: {
+    alignItems: "center",
+    justifyContent: "center",
+    marginBottom: 20,
+  },
+  addBtn: {
+    width: 58,
+    height: 58,
+    borderRadius: 29,
+    backgroundColor: stylings.colors.bluebg,
+    alignItems: "center",
+    justifyContent: "center",
+    shadowColor: stylings.colors.bluebg,
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.45,
+    shadowRadius: 12,
+    elevation: 8,
+  },
+  addPulse: {
+    position: "absolute",
+    width: 58,
+    height: 58,
+    borderRadius: 29,
+    backgroundColor: stylings.colors.bluebg,
+  },
+});

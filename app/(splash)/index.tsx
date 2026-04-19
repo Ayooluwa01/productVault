@@ -1,10 +1,10 @@
-import Splashlogo from "@/assets/svgs/splashlogo.svg";
 import { StyledText } from "@/components/Styledtext";
 import { router } from "expo-router";
 import { MotiView } from "moti";
 import React, { useEffect, useState } from "react";
 import { View } from "react-native";
 import { Easing } from "react-native-reanimated";
+import Splashlogo from "../../assets/svgs/Splashlogo.svg";
 
 const Splash = () => {
   const [leave, setLeave] = useState(false);
@@ -34,17 +34,6 @@ const Splash = () => {
         className="absolute w-[300px] h-[300px] rounded-full border border-white"
       />
 
-      <MotiView
-        from={{ opacity: 0, scale: 0.3 }}
-        animate={{ opacity: 0.12, scale: 1 }}
-        transition={{
-          type: "timing",
-          duration: 1000,
-          easing: Easing.out(Easing.cubic),
-        }}
-        className="absolute w-[220px] h-[220px] rounded-full border border-white"
-      />
-
       {/* Logo */}
       <MotiView
         from={{ opacity: 0, scale: 0.5, translateY: 10 }}
@@ -69,7 +58,7 @@ const Splash = () => {
           delay: 600,
           easing: Easing.out(Easing.quad),
         }}
-        className="w-10 h-px bg-white/40 mb-3"
+        className="w-10 h-px bg-white/40 "
       />
 
       {/* Title */}
@@ -82,7 +71,7 @@ const Splash = () => {
           delay: 500,
           easing: Easing.out(Easing.quad),
         }}
-        className="items-center mb-small"
+        className="items-center "
       >
         <StyledText
           className="text-white font-bold tracking-widest"
@@ -105,7 +94,7 @@ const Splash = () => {
         className="items-center "
       >
         <StyledText
-          className="text-white  tracking-[5px] font-light mt-28"
+          className="text-white  tracking-[5px] font-light mt-8"
           style={{ fontSize: 10 }}
         >
           YOUR DIGITAL SANCTUARY...

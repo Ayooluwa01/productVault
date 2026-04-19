@@ -1,17 +1,26 @@
 import User from "@/assets/svgs/User.svg";
 import Vault from "@/assets/svgs/Vault.svg";
 import { StyledText } from "@/components/Styledtext";
+import { stylings } from "@/src/constants/stylings";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import React, { memo } from "react";
 import { StyleSheet, TouchableOpacity, View } from "react-native";
 
 const HomeHeader = () => {
   return (
-    <View style={styles.container} className="p-screen-edge bg-red-800">
+    <View style={styles.container} className="p-screen-edge ">
       {/* Left side — Icon + Text */}
       <TouchableOpacity style={styles.left}>
         <Vault />
-        <StyledText>ProductVault</StyledText>
+        <StyledText
+          style={{
+            fontSize: stylings.fontSize.mediumtext,
+            fontWeight: "bold",
+            color: stylings.colors.bluebg,
+          }}
+        >
+          ProductVault
+        </StyledText>
       </TouchableOpacity>
 
       {/* Right side — User icon */}

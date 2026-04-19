@@ -28,7 +28,7 @@ export const stylings = {
 
   fontSize: {
     Bigtext: 36,
-    Minibigtext: 20,
+    Minibigtext: 26,
     mediumtext: 16,
     smalltext: 10,
   },
