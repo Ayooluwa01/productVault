@@ -1,10 +1,10 @@
-import User from "@/assets/svgs/User.svg";
-import Vault from "@/assets/svgs/Vault.svg";
 import { StyledText } from "@/components/Styledtext";
 import { stylings } from "@/src/constants/stylings";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import React, { memo } from "react";
 import { StyleSheet, TouchableOpacity, View } from "react-native";
+import User from "../assets/svgs/User.svg";
+import Vault from "../assets/svgs/Vault.svg";
 
 const HomeHeader = () => {
   return (
