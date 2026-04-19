@@ -107,6 +107,7 @@ const SettingsIcon = ({
   </MotiView>
 );
 
+// Homeicon
 const renderHomeIcon = ({
   color,
   focused,
@@ -114,9 +115,13 @@ const renderHomeIcon = ({
   color: string;
   focused: boolean;
 }) => <HomeIcon color={color} focused={focused} />;
+
+// Addicon
 const renderAddIcon = ({ focused }: { color: string; focused: boolean }) => (
   <AddIcon focused={focused} />
 );
+
+// Settingsicon
 const renderSettingsIcon = ({
   color,
   focused,
