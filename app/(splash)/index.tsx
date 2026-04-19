@@ -9,12 +9,18 @@ import Splashlogo from "../../assets/svgs/Splashlogo.svg";
 const Splash = () => {
   const [leave, setLeave] = useState(false);
 
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      setLeave(true);
-    }, 4000);
-    return () => clearTimeout(timeout);
-  }, []);
+  // 1. Change your timeout to handle navigation directly
+useEffect(() => {
+  const timeout = setTimeout(() => {
+    // Navigate after 4 seconds regardless of animation state
+    router.replace("/(main)/Homescreens/Productlisting");
+  }, 4000);
+  return () => clearTimeout(timeout);
+}, []);
+
+// 2. Remove the navigation logic from MotiView's onDidAnimate
+// This ensures navigation happens exactly at 4 seconds.
+  
   return (
     <View className="flex-1 bg-bluebg items-center justify-center">
       <MotiView
@@ -26,11 +32,8 @@ const Splash = () => {
           delay: 100,
           easing: Easing.out(Easing.cubic),
         }}
-        onDidAnimate={(key, finished) => {
-          if (key === "opacity" && finished && leave) {
-            router.replace("/(main)/Homescreens/Productlisting");
-          }
-        }}
+        
+        
         className="absolute w-[300px] h-[300px] rounded-full border border-white"
       />
 
