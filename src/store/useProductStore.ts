@@ -71,7 +71,7 @@ export const useProductStore = create<ProductState>()(
       limit: 5,
       dialog: false,
       handledialog: () => set((state) => ({ dialog: !state.dialog })),
-      products: DUMMY_PRODUCTS,
+      products: [],
 
       setLimit: (value) => set({ limit: value }),
 
